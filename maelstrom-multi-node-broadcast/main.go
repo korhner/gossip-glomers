@@ -13,6 +13,7 @@ func main() {
 
 	n := maelstrom.NewNode()
 	n.Handle("broadcast", BroadcastHandler(server, n))
+	n.Handle("broadcast_ok", BroadcastOkHandler())
 	n.Handle("read", ReadHandler(server, n))
 	n.Handle("topology", TopologyHandler(server, n))
 
@@ -138,6 +139,18 @@ func BroadcastHandler(server *Server, n *maelstrom.Node) maelstrom.HandlerFunc {
 		}
 
 		return n.Reply(msg, NewBroadcastResponse())
+	}
+}
+
+func BroadcastOkHandler() maelstrom.HandlerFunc {
+	return func(msg maelstrom.Message) error {
+		// Parse the message but don't need to reply
+		var body map[string]any
+		if err := json.Unmarshal(msg.Body, &body); err != nil {
+			return err
+		}
+		// No need to reply to broadcast_ok messages
+		return nil
 	}
 }
 
