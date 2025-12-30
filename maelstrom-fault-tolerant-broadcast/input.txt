@@ -1,0 +1,2 @@
+{"src":"n1","dest":"c3","body":{"in_reply_to":1,"type":"init_ok"}}
+{c3 n1 {"type":"init","node_id":"n1","node_ids":["n0","n1","n2","n3","n4"],"msg_id":1}}
